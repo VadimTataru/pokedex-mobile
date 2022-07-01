@@ -1,4 +1,4 @@
-package com.example.pokedexwiki
+package com.example.pokedexwiki.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
