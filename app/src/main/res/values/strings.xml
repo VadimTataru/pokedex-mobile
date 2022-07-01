@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">PokedexWiki</string>
+
+    <string name="wrapper_poke">Pokemon</string>
+    <string name="wrapper_wiki">Wiki</string>
+
 </resources>
