@@ -9,5 +9,41 @@
         android:id="@+id/wrapperFragment"
         android:name="com.example.pokedexwiki.presentation.fragments.WrapperFragment"
         android:label="fragment_wrapper"
-        tools:layout="@layout/fragment_wrapper" />
+        tools:layout="@layout/fragment_wrapper" >
+        <action
+            android:id="@+id/action_wrapperFragment_to_menuFragment"
+            app:destination="@id/menuFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/wrapperFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/menuFragment"
+        android:name="com.example.pokedexwiki.presentation.fragments.MenuFragment"
+        android:label="fragment_menu"
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_randomPokemonFragment"
+            app:destination="@id/randomPokemonFragment" />
+        <action
+            android:id="@+id/action_menuFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.pokedexwiki.presentation.fragments.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/randomPokemonFragment"
+        android:name="com.example.pokedexwiki.presentation.fragments.RandomPokemonFragment"
+        android:label="fragment_random_pokemon"
+        tools:layout="@layout/fragment_random_pokemon" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="com.example.pokedexwiki.presentation.fragments.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" />
 </navigation>
