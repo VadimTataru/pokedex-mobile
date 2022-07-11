@@ -1,7 +1,14 @@
 package com.example.pokedexwiki.data.models
 
-// TODO: Изучить документацию к API 
+import com.google.gson.annotations.SerializedName
+
+// TODO: Fix image url
+// https://pokeapi.co/api/v2/pokemon/1
 data class Pokemon(
-    val id: Int,
-    val name: String
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val name: String,
+    @SerializedName("height") val height: Int,
+    @SerializedName("weight") val weight: Int,
+    @SerializedName("base_experience") val baseExperience: Int,
+    @SerializedName("sprites[front_default]") val imageUrl: String
 )
