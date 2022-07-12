@@ -2,4 +2,5 @@
 <resources>
     <dimen name="text_size18">18sp</dimen>
     <dimen name="wrapper_text_size">48sp</dimen>
+    <dimen name="min_text_size">48dp</dimen>
 </resources>
