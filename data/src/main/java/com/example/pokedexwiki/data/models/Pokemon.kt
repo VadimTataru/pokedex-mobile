@@ -1,5 +1,6 @@
 package com.example.pokedexwiki.data.models
 
+import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
 // TODO: Fix image url
@@ -10,5 +11,5 @@ data class Pokemon(
     @SerializedName("height") val height: Int,
     @SerializedName("weight") val weight: Int,
     @SerializedName("base_experience") val baseExperience: Int,
-    @SerializedName("sprites[front_default]") val imageUrl: String
+    @SerializedName("sprites") val imageUrls: JsonObject
 )
