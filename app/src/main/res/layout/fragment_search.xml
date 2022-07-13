@@ -49,6 +49,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:listitem="@layout/pokemon_item"
+        tools:itemCount="1"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintTop_toBottomOf="@+id/search_btn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

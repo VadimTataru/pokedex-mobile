@@ -7,7 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout.VERTICAL
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pokedexwiki.data.models.Pokemon
@@ -24,13 +28,12 @@ class SearchFragment : Fragment() {
 
     lateinit var binding: FragmentSearchBinding
 
-    lateinit var adapter: PokemonAdapter
+    lateinit var pokemonAdapter: PokemonAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AndroidSupportInjection.inject(this)
         viewModel = ViewModelProvider(this, viewModelFactory).get(SearchViewModel::class.java)
-        adapter = PokemonAdapter(this.context)
     }
 
     override fun onCreateView(
@@ -38,27 +41,42 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSearchBinding.inflate(inflater)
+        initRecyclerView()
         return binding.root
     }
 
     //first try bulbasaur
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initRc(context)
+        binding.rcView.visibility = View.GONE
         binding.searchBtn.setOnClickListener {
+            binding.rcView.visibility = View.VISIBLE
             val text = binding.searchEt.text.toString()
-            viewModel.fetchPokemon(text)
+            loadData(text)
         }
     }
 
-    @SuppressLint("UseRequireInsteadOfGet")
-    private fun initRc(context: Context?) {
-        viewModel.pokemon?.observe(viewLifecycleOwner) { pokemon ->
-            binding.apply {
-                rcView.layoutManager = GridLayoutManager(this@SearchFragment.context, 1)
-                rcView.adapter = adapter
-                adapter.changePokemon(pokemon)
-            }
+
+    private fun initRecyclerView() {
+        binding.rcView.apply {
+            //val layoutManager = LinearLayoutManager(this@SearchFragment.requireContext())
+            //val decoration = DividerItemDecoration(this@SearchFragment.requireContext(), VERTICAL)
+            //addItemDecoration(decoration)
+            pokemonAdapter = PokemonAdapter()
+            adapter = pokemonAdapter
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun loadData(input: String) {
+        viewModel.getPokemonSingle().observe(viewLifecycleOwner, Observer<Pokemon>{
+            if (it != null) {
+                pokemonAdapter.changePokemon(it)
+                //pokemonAdapter.notifyDataSetChanged()
+            } else {
+                Toast.makeText(this@SearchFragment.requireContext(), "Error in fetching data", Toast.LENGTH_SHORT).show()
+            }
+        })
+        viewModel.fetchPokemon(input)
     }
 }

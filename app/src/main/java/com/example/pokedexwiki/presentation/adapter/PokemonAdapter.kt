@@ -1,5 +1,6 @@
 package com.example.pokedexwiki.presentation.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -11,30 +12,28 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.pokedexwiki.R
 import com.example.pokedexwiki.data.models.Pokemon
 import com.example.pokedexwiki.databinding.PokemonItemBinding
-import java.util.ArrayList
+import java.util.*
 
-class PokemonAdapter(private val context: Context?): RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
+class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
 
     private var pokemon: Pokemon? = null
+    private val pokemons = mutableListOf<Pokemon>()
 
     class PokemonHolder(item: View): RecyclerView.ViewHolder(item) {
-        val binding = PokemonItemBinding.bind(item)
+        private val binding = PokemonItemBinding.bind(item)
+        @SuppressLint("SetTextI18n")
         fun bind(pokemon: Pokemon) = with(binding) {
-            pokemonId.text = pokemon.id.toString()
-            pokemonHeight.text = pokemon.height.toString()
-            pokemonWeight.text = pokemon.weight.toString()
-            pokemonName.text = pokemon.name
-            //set image with glide
-            //GlideIt(pokemon.sprites.imageUrl.url, binding.root.context, pokemonImage)
-        }
+            pokemonId.text = "# ${pokemon.id}"
+            pokemonHeight.text = "Height: ${pokemon.height}"
+            pokemonWeight.text = "Weight: ${pokemon.weight}"
+            pokemonName.text = pokemon.name.uppercase()
 
-        private fun GlideIt(url: String, context: Context, imageView: ImageView) {
-            Glide
-                .with(context)
-                .load(url)
-                .centerCrop()
+            val link = pokemon.sprites.otherSprites.imageUrl.link
+            Glide.with(pokemonImage)
+                .load(link)
+                .circleCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imageView)
+                .into(pokemonImage)
         }
     }
 
@@ -44,27 +43,15 @@ class PokemonAdapter(private val context: Context?): RecyclerView.Adapter<Pokemo
     }
 
     override fun onBindViewHolder(holder: PokemonHolder, position: Int) {
-        val pokemon = pokemon ?: return
-        if (context != null) {
-            GlideIt(pokemon.sprites.imageUrl.url, context, holder.binding.pokemonImage)
-        }
-        holder.bind(pokemon)
+        if(pokemon != null) holder.bind(pokemon!!)
     }
 
     override fun getItemCount(): Int {
-        return 0
-    }
-
-    private fun GlideIt(url: String, context: Context, imageView: ImageView) {
-        Glide
-            .with(context)
-            .load(url)
-            .centerCrop()
-            .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .into(imageView)
+        return 1
     }
 
     fun changePokemon(pokemon: Pokemon) {
         this.pokemon = pokemon
+        notifyDataSetChanged()
     }
 }

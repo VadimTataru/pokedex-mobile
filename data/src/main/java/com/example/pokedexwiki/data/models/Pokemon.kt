@@ -11,7 +11,11 @@ data class Pokemon(
     @SerializedName("height") val height: Int,
     @SerializedName("weight") val weight: Int,
     @SerializedName("base_experience") val baseExperience: Int,
-    @SerializedName("sprites") val sprites: SpritesObject
+    @SerializedName("sprites") val sprites: OtherSprites
+)
+
+data class OtherSprites(
+    @SerializedName("other") val otherSprites: SpritesObject
 )
 
 data class SpritesObject(
@@ -19,5 +23,5 @@ data class SpritesObject(
 )
 
 data class Sprite (
-    @SerializedName("front_default") val url: String
+    @SerializedName("front_default") val link: String
 )
