@@ -1,5 +1,6 @@
 package com.example.pokedexwiki.data.models
 
+import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
@@ -12,7 +13,10 @@ data class Pokemon(
     @SerializedName("weight") val weight: Int,
     @SerializedName("base_experience") val baseExperience: Int,
     @SerializedName("sprites") val sprites: OtherSprites
-)
+) {
+    fun toPokemonEntity() = PokemonEntity(id, name, height, weight, baseExperience, sprites.otherSprites.imageUrl.link)
+    fun toPokemonDomain() = PokemonDomain(id, name, height, weight, baseExperience, sprites.otherSprites.imageUrl.link)
+}
 
 data class OtherSprites(
     @SerializedName("other") val otherSprites: SpritesObject

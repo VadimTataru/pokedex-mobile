@@ -14,8 +14,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.pokedexwiki.data.models.OtherSprites
 import com.example.pokedexwiki.data.models.Pokemon
+import com.example.pokedexwiki.data.models.Sprite
+import com.example.pokedexwiki.data.models.SpritesObject
 import com.example.pokedexwiki.databinding.FragmentSearchBinding
+import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.example.pokedexwiki.presentation.adapter.PokemonAdapter
 import com.example.pokedexwiki.presentation.viewmodel.SearchViewModel
 import dagger.android.support.AndroidSupportInjection
@@ -45,7 +49,6 @@ class SearchFragment : Fragment() {
         return binding.root
     }
 
-    //first try bulbasaur
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rcView.visibility = View.GONE
@@ -59,20 +62,18 @@ class SearchFragment : Fragment() {
 
     private fun initRecyclerView() {
         binding.rcView.apply {
-            //val layoutManager = LinearLayoutManager(this@SearchFragment.requireContext())
-            //val decoration = DividerItemDecoration(this@SearchFragment.requireContext(), VERTICAL)
-            //addItemDecoration(decoration)
             pokemonAdapter = PokemonAdapter()
             adapter = pokemonAdapter
         }
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun loadData(input: String) {
-        viewModel.getPokemonSingle().observe(viewLifecycleOwner, Observer<Pokemon>{
+        viewModel.getPokemonSingle().observe(viewLifecycleOwner, Observer<PokemonDomain>{
             if (it != null) {
-                pokemonAdapter.changePokemon(it)
-                //pokemonAdapter.notifyDataSetChanged()
+                val pokemon = Pokemon(it.id, it.name, it.height, it.weight, it.baseExperience, OtherSprites(
+                    SpritesObject(Sprite(it.imageUrl))
+                ))
+                pokemonAdapter.changePokemon(pokemon)
             } else {
                 Toast.makeText(this@SearchFragment.requireContext(), "Error in fetching data", Toast.LENGTH_SHORT).show()
             }

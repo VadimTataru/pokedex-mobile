@@ -17,7 +17,6 @@ import java.util.*
 class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
 
     private var pokemon: Pokemon? = null
-    private val pokemons = mutableListOf<Pokemon>()
 
     class PokemonHolder(item: View): RecyclerView.ViewHolder(item) {
         private val binding = PokemonItemBinding.bind(item)
@@ -50,6 +49,7 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
         return 1
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun changePokemon(pokemon: Pokemon) {
         this.pokemon = pokemon
         notifyDataSetChanged()

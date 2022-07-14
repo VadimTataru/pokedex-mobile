@@ -3,7 +3,10 @@ package com.example.pokedexwiki.app
 import android.app.Application
 import com.example.pokedexwiki.data.di.DaggerDataComponent
 import com.example.pokedexwiki.data.di.DataComponent
+import com.example.pokedexwiki.di.ApplicationComponent
 import com.example.pokedexwiki.di.DaggerApplicationComponent
+import com.example.pokedexwiki.di.DaggerDomainComponent
+import com.example.pokedexwiki.di.DomainComponent
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -22,6 +25,7 @@ class App: Application(), HasAndroidInjector {
             .builder()
             .application(this)
             .dataComponent(provideDataComponent())
+            .domainComponent(provideDomainComponent())
             .build()
 
         applicationComponent.inject(this)
@@ -33,4 +37,9 @@ class App: Application(), HasAndroidInjector {
             .build()
     }
 
+    private fun provideDomainComponent(): DomainComponent {
+        return DaggerDomainComponent
+            .builder()
+            .build()
+    }
 }

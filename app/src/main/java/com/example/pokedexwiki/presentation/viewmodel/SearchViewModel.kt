@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.pokedexwiki.data.models.Pokemon
 import com.example.pokedexwiki.data.source.remote.PokemonAPIService
+import com.example.pokedexwiki.domain.interactor.PokemonInteractor
+import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.example.pokedexwiki.presentation.base.BaseViewModel
 import com.example.pokedexwiki.utils.Constants.CHECK_TAG
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -11,17 +13,18 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
-    private val service: PokemonAPIService
+    private val service: PokemonAPIService,
+    private val interactor: PokemonInteractor
 ) : BaseViewModel() {
 
-    private var pokemon: MutableLiveData<Pokemon> = MutableLiveData()
+    private var pokemon: MutableLiveData<PokemonDomain> = MutableLiveData()
 
-    fun getPokemonSingle(): MutableLiveData<Pokemon> {
+    fun getPokemonSingle(): MutableLiveData<PokemonDomain> {
         return pokemon
     }
 
     fun fetchPokemon(pokemonName: String) {
-        service.getPokemonByName(pokemonName)
+        interactor.getPokemonByName(pokemonName)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
