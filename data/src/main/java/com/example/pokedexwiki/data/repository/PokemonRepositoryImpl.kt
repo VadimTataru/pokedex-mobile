@@ -8,6 +8,7 @@ import com.example.pokedexwiki.data.source.remote.PokemonAPIService
 import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.example.pokedexwiki.domain.repository.PokemonRepository
 import io.reactivex.Single
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -19,26 +20,20 @@ class PokemonRepositoryImpl
 
     @SuppressLint("CheckResult")
     override fun getPokemonByName(input: String): Single<PokemonDomain> {
-        var result: Single<PokemonDomain>? = null
-        service.getPokemonByName(input).observeOn(Schedulers.computation())
-            .subscribe({
-                result = Single.just(it.toPokemonDomain())
-            }, {
-                Log.d("just_checking", it.localizedMessage)
-            })
-        return result!!
+        val result: Single<PokemonDomain> = service.getPokemonByName(input)
+            .flatMap{
+                Single.just(it.toPokemonDomain())
+            }
+        return result
     }
 
     @SuppressLint("CheckResult")
     override fun getPokemonById(id: Int): Single<PokemonDomain> {
-        var result: Single<PokemonDomain>? = null
-        service.getPokemonById(id).observeOn(Schedulers.computation())
-            .subscribe({
-                result = Single.just(it.toPokemonDomain())
-            }, {
-                Log.d("just_checking", it.localizedMessage)
-            })
-        return result!!
+        val result: Single<PokemonDomain> = service.getPokemonById(id)
+            .flatMap {
+                Single.just(it.toPokemonDomain())
+            }
+        return result
     }
 
     override fun addPokemon(pokemonDomain: PokemonDomain) {

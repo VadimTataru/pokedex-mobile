@@ -80,4 +80,9 @@ class SearchFragment : Fragment() {
         })
         viewModel.fetchPokemon(input)
     }
+
+    private fun setFavouriteState() {
+        /*if !favourite
+        *   */
+    }
 }

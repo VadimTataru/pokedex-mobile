@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
-    private val service: PokemonAPIService,
+    //private val service: PokemonAPIService,
     private val interactor: PokemonInteractor
 ) : BaseViewModel() {
 
