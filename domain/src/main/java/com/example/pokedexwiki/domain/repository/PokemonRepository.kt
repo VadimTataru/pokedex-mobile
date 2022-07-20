@@ -9,5 +9,4 @@ interface PokemonRepository {
     fun addPokemon(pokemonDomain: PokemonDomain)
     fun deletePokemon(pokemonDomain: PokemonDomain)
     fun checkFavourite(input: String): Boolean
-    fun checkFavourite(id: Int): Boolean
 }

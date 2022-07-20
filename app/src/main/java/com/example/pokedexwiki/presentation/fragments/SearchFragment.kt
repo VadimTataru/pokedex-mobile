@@ -50,7 +50,7 @@ class SearchFragment : Fragment() {
     private fun initViews() {
         binding.searchBtn.setOnClickListener {
             binding.rcView.visibility = View.VISIBLE
-            val text = binding.searchEt.text.toString()
+            val text = binding.searchEt.text.toString().lowercase()
             loadData(text)
         }
 
