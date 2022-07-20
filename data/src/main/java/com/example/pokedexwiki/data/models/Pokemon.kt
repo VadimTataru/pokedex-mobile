@@ -1,10 +1,8 @@
 package com.example.pokedexwiki.data.models
 
 import com.example.pokedexwiki.domain.models.PokemonDomain
-import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName
 
-// TODO: Fix image url
 // https://pokeapi.co/api/v2/pokemon/1
 data class Pokemon(
     @SerializedName("id") val id: Int,

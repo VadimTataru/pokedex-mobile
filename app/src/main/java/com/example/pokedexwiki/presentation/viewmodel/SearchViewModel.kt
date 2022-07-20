@@ -13,14 +13,18 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
-    //private val service: PokemonAPIService,
     private val interactor: PokemonInteractor
 ) : BaseViewModel() {
 
     private var pokemon: MutableLiveData<PokemonDomain> = MutableLiveData()
+    private var favState: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun getPokemonSingle(): MutableLiveData<PokemonDomain> {
         return pokemon
+    }
+
+    fun getFavState(): MutableLiveData<Boolean> {
+        return favState
     }
 
     fun fetchPokemon(pokemonName: String) {
@@ -34,5 +38,18 @@ class SearchViewModel @Inject constructor(
                 Log.d(CHECK_TAG, it.localizedMessage!!)
             })
             .untilCleared()
+    }
+
+    fun setFavouriteState(): Boolean {
+        favState.postValue(pokemon.value?.let { interactor.checkFavourite(it.name) })
+        return if(favState.value == false) {
+            interactor.addToFavourite(pokemon.value!!)
+            favState.value = false
+            true
+        } else {
+            interactor.deleteFromFavourite(pokemon.value!!)
+            favState.value = true
+            false
+        }
     }
 }

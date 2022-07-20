@@ -58,4 +58,22 @@ class PokemonRepositoryImpl
             pokemonDomain.imageUrl
         ))
     }
+
+    override fun checkFavourite(input: String): Boolean {
+        var result: Boolean = false
+        val dispose =  database.pokemonDao().getByName(input)
+            .subscribeOn(Schedulers.computation())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe ({
+                result = it != null
+            }, {
+
+            })
+        dispose.dispose()
+        return result
+    }
+
+    override fun checkFavourite(id: Int): Boolean {
+        return database.pokemonDao().getById(id).blockingGet() != null
+    }
 }
