@@ -1,4 +1,4 @@
-package com.example.pokedexwiki.di
+package com.example.pokedexwiki.di.annotation
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

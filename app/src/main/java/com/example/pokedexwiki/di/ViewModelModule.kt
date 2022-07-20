@@ -2,6 +2,7 @@ package com.example.pokedexwiki.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.example.pokedexwiki.di.annotation.ViewModelKey
 import com.example.pokedexwiki.presentation.base.ViewModelFactory
 import com.example.pokedexwiki.presentation.viewmodel.SearchViewModel
 import dagger.Binds

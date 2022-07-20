@@ -2,7 +2,9 @@ package com.example.pokedexwiki.di
 
 import android.app.Application
 import com.example.pokedexwiki.app.App
+import com.example.pokedexwiki.data.di.ContextDep
 import com.example.pokedexwiki.data.di.DataComponent
+import com.example.pokedexwiki.di.annotation.ApplicationScope
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -14,16 +16,20 @@ import dagger.android.AndroidInjector
     ActivityBindingModule::class,
     FragmentBindingModule::class
 ], dependencies = [
-    DataComponent::class
+    DataComponent::class, DomainComponent::class
 ])
-interface ApplicationComponent: AndroidInjector<App> {
+@ApplicationScope
+interface ApplicationComponent: AndroidInjector<App>, ContextDep {
+
+    override fun application(): Application
 
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: Application): ApplicationComponent.Builder
+        fun application(application: Application): Builder
 
-        fun dataComponent(dataComponent: DataComponent): ApplicationComponent.Builder
+        fun dataComponent(dataComponent: DataComponent): Builder
+        fun domainComponent(domainComponent: DomainComponent): Builder
 
         fun build(): ApplicationComponent
     }
