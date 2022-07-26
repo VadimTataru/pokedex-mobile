@@ -72,4 +72,10 @@ class PokemonRepositoryImpl
         dispose.dispose()
         return result
     }
+
+    override fun getPokemonListFromDb(): Single<List<PokemonDomain>> {
+        TODO("Not yet implemented")
+    }
+
+
 }

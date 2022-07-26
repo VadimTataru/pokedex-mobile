@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.pokedexwiki.di.annotation.ViewModelKey
 import com.example.pokedexwiki.presentation.base.ViewModelFactory
+import com.example.pokedexwiki.presentation.viewmodel.FavouriteViewModel
 import com.example.pokedexwiki.presentation.viewmodel.RandomViewModel
 import com.example.pokedexwiki.presentation.viewmodel.SearchViewModel
 import dagger.Binds
@@ -26,4 +27,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(RandomViewModel::class)
     internal abstract fun bindRandomViewModel(randomViewModel: RandomViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FavouriteViewModel::class)
+    internal abstract fun bindFavouriteViewModel(favouriteViewModel: FavouriteViewModel): ViewModel
 }
