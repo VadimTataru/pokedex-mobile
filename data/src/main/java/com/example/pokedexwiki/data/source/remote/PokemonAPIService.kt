@@ -1,6 +1,7 @@
 package com.example.pokedexwiki.data.source.remote
 
 import com.example.pokedexwiki.data.models.Pokemon
+import com.example.pokedexwiki.data.models.PokemonCount
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -14,4 +15,7 @@ interface PokemonAPIService {
     @GET("pokemon/{pokemonId}")
     @Headers("Content-Type: application/json")
     fun getPokemonById(@Path("pokemonId") pokemonId: Int): Single<Pokemon>
+
+    @GET("pokemon")
+    fun getPokemonCount(): Single<PokemonCount>
 }

@@ -72,8 +72,4 @@ class PokemonRepositoryImpl
         dispose.dispose()
         return result
     }
-
-    override fun checkFavourite(id: Int): Boolean {
-        return database.pokemonDao().getById(id).blockingGet() != null
-    }
 }

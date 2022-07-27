@@ -30,9 +30,4 @@ class PokemonInteractor
     fun checkFavourite(name: String): Boolean {
         return repository.checkFavourite(name)
     }
-
-    fun checkFavourite(id: Int): Boolean {
-        return repository.checkFavourite(id)
-    }
-
 }
