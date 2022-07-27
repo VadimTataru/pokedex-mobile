@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 class FavouriteFragment : Fragment() {
     @Inject
-    private lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var viewModelFactory: ViewModelProvider.Factory
     private lateinit var viewModel: FavouriteViewModel
     private lateinit var binding: FragmentFavouriteBinding
     private lateinit var pokemonListAdapter: PokemonListAdapter

@@ -27,4 +27,8 @@ class PokemonInteractor @Inject constructor(
     fun checkFavourite(name: String): Boolean {
         return repository.checkFavourite(name)
     }
+
+    fun getPokemonListFromDb(): List<PokemonDomain> {
+        return repository.getPokemonListFromDb()
+    }
 }

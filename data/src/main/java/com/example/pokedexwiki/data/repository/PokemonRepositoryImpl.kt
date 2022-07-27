@@ -7,6 +7,7 @@ import com.example.pokedexwiki.data.source.local.PokemonDatabase
 import com.example.pokedexwiki.data.source.remote.PokemonAPIService
 import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.example.pokedexwiki.domain.repository.PokemonRepository
+import io.reactivex.Flowable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -60,7 +61,7 @@ class PokemonRepositoryImpl
     }
 
     override fun checkFavourite(input: String): Boolean {
-        var result: Boolean = false
+        var result = false
         val dispose =  database.pokemonDao().getByName(input)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
@@ -73,8 +74,14 @@ class PokemonRepositoryImpl
         return result
     }
 
-    override fun getPokemonListFromDb(): Single<List<PokemonDomain>> {
-        TODO("Not yet implemented")
+    override fun getPokemonListFromDb(): List<PokemonDomain> {
+        val list = mutableListOf<PokemonDomain>()
+        val result = database.pokemonDao().getAll()
+        if(!result.isNullOrEmpty())
+            for(p in result) {
+                list.add(PokemonDomain(p.id, p.name, p.height, p.weight, p.baseExperience, p.imageUrl))
+            }
+        return list
     }
 
 

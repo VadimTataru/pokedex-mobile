@@ -15,6 +15,4 @@ data class PokemonEntity(
     @ColumnInfo(name = "weight") val weight: Int,
     @ColumnInfo(name = "base_experience") val baseExperience: Int,
     @ColumnInfo(name = "image_url") val imageUrl: String
-) {
-    fun toPokemonDomain() = PokemonDomain(id, name, height, weight, baseExperience, imageUrl)
-}
+)

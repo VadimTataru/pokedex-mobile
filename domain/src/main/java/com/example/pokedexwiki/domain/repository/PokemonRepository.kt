@@ -9,5 +9,5 @@ interface PokemonRepository {
     fun addPokemon(pokemonDomain: PokemonDomain)
     fun deletePokemon(pokemonDomain: PokemonDomain)
     fun checkFavourite(input: String): Boolean
-    fun getPokemonListFromDb(): Single<List<PokemonDomain>>
+    fun getPokemonListFromDb(): List<PokemonDomain>
 }
