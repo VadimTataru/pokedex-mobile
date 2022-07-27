@@ -1,5 +1,6 @@
 package com.example.pokedexwiki.di
 
+import com.example.pokedexwiki.presentation.fragments.FavouriteFragment
 import com.example.pokedexwiki.presentation.fragments.RandomPokemonFragment
 import com.example.pokedexwiki.presentation.fragments.SearchFragment
 import dagger.Module
@@ -12,4 +13,7 @@ abstract class FragmentBindingModule {
 
     @ContributesAndroidInjector
     abstract fun bindRandomFragment(): RandomPokemonFragment
+
+    @ContributesAndroidInjector
+    abstract fun bindFavouriteFragment(): FavouriteFragment
 }

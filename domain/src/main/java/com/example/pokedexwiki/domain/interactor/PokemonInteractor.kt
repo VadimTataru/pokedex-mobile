@@ -5,12 +5,9 @@ import com.example.pokedexwiki.domain.repository.PokemonRepository
 import io.reactivex.Single
 import javax.inject.Inject
 
-class PokemonInteractor
-    @Inject
-    constructor(
-        private val repository: PokemonRepository
-    ){
-
+class PokemonInteractor @Inject constructor(
+    private val repository: PokemonRepository
+){
     fun getPokemonByName(name: String): Single<PokemonDomain> {
         return repository.getPokemonByName(name)
     }
@@ -29,5 +26,9 @@ class PokemonInteractor
 
     fun checkFavourite(name: String): Boolean {
         return repository.checkFavourite(name)
+    }
+
+    fun getPokemonListFromDb(): List<PokemonDomain> {
+        return repository.getPokemonListFromDb()
     }
 }
