@@ -13,7 +13,9 @@ import com.example.pokedexwiki.data.models.Pokemon
 import com.example.pokedexwiki.data.models.Sprite
 import com.example.pokedexwiki.data.models.SpritesObject
 import com.example.pokedexwiki.databinding.FragmentFavouriteBinding
+import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.example.pokedexwiki.presentation.adapter.PokemonListAdapter
+import com.example.pokedexwiki.presentation.delegates.FavouriteStateDelegate
 import com.example.pokedexwiki.presentation.viewmodel.FavouriteViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -48,6 +50,17 @@ class FavouriteFragment : Fragment() {
     private fun initRecyclerView() {
         binding.rcView.apply {
             pokemonListAdapter = PokemonListAdapter()
+            pokemonListAdapter.attachDelegate(object: FavouriteStateDelegate{
+                override fun addFavourite(pokemon: Pokemon) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun deleteFavourite(pokemon: Pokemon) {
+                    viewModel.deleteFavourite(pokemon)
+                    pokemonListAdapter.deletePokemon(pokemon)
+                }
+
+            })
             adapter = pokemonListAdapter
         }
     }
