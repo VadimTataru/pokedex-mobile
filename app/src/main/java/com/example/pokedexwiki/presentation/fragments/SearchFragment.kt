@@ -86,10 +86,4 @@ class SearchFragment : Fragment() {
         }
         viewModel.fetchPokemon(input)
     }
-
-    private fun setFavouriteState() {
-        val result = viewModel.setFavouriteState()
-        val toastText = if(result) "Pokemon successfully added!" else "Pokemon deleted!"
-        Toast.makeText(this@SearchFragment.requireContext(), toastText, Toast.LENGTH_SHORT).show()
-    }
 }

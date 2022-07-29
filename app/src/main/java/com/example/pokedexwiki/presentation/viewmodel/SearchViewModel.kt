@@ -47,17 +47,4 @@ class SearchViewModel @Inject constructor(
     fun addPokemon(pokemon: Pokemon) {
         interactor.addToFavourite(pokemon.toPokemonDomain())
     }
-
-    fun setFavouriteState(): Boolean {
-        favState.postValue(pokemon.value?.let { interactor.checkFavourite(it.name) })
-        return if(favState.value == false) {
-            interactor.addToFavourite(pokemon.value!!)
-            favState.value = false
-            true
-        } else {
-            interactor.deleteFromFavourite(pokemon.value!!)
-            favState.value = true
-            false
-        }
-    }
 }

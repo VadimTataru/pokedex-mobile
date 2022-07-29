@@ -95,10 +95,4 @@ class RandomPokemonFragment : Fragment() {
             }
         }
     }
-
-    private fun setFavouriteState() {
-        val result = viewModel.setFavouriteState()
-        val toastText = if(result) "Pokemon successfully added!" else "Pokemon deleted!"
-        Toast.makeText(this@RandomPokemonFragment.requireContext(), toastText, Toast.LENGTH_SHORT).show()
-    }
 }
