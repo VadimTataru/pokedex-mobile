@@ -15,6 +15,7 @@ import com.example.pokedexwiki.data.models.Sprite
 import com.example.pokedexwiki.data.models.SpritesObject
 import com.example.pokedexwiki.databinding.FragmentRandomPokemonBinding
 import com.example.pokedexwiki.presentation.adapter.PokemonAdapter
+import com.example.pokedexwiki.presentation.delegates.FavouriteStateDelegate
 import com.example.pokedexwiki.presentation.viewmodel.RandomViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -54,23 +55,24 @@ class RandomPokemonFragment : Fragment() {
                 rcView.visibility = View.VISIBLE
                 loadData()
             }
-
-            btnAddFav.setOnClickListener {
-                setFavouriteState()
-            }
-        }
-
-        viewModel.getFavState().observe(viewLifecycleOwner) {
-            if (!it)
-                binding.btnAddFav.text = "Добавить"
-            else
-                binding.btnAddFav.text = "Удалить"
         }
     }
 
     private fun initRecyclerView() {
         binding.rcView.apply {
             pokemonAdapter = PokemonAdapter()
+            pokemonAdapter.attachDelegate(object: FavouriteStateDelegate {
+                override fun addFavourite(pokemon: Pokemon): Boolean {
+                    viewModel.addPokemon(pokemon)
+                    return true
+                }
+
+                override fun deleteFavourite(pokemon: Pokemon): Boolean {
+                    viewModel.deletePokemon(pokemon)
+                    return false
+                }
+
+            })
             adapter = pokemonAdapter
         }
     }

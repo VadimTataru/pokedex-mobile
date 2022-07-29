@@ -15,7 +15,10 @@
     </style>
 
 
-    <style name="customBtnStyle">
-        <item name="colorPrimary">@color/red</item>
+    <style name="customBtnStyle" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/FireOrangeThemeOverlay</item>
+    </style>
+    <style name="FireOrangeThemeOverlay">
+        <item name="colorPrimary">@color/fire_orange</item>
     </style>
 </resources>

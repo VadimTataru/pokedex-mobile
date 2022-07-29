@@ -2,6 +2,7 @@ package com.example.pokedexwiki.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.pokedexwiki.data.models.Pokemon
 import com.example.pokedexwiki.domain.interactor.PokemonInteractor
 import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.example.pokedexwiki.presentation.base.BaseViewModel
@@ -39,6 +40,14 @@ class RandomViewModel @Inject constructor(
                 Log.d(Constants.CHECK_TAG, it.localizedMessage!!)
             })
             .untilCleared()
+    }
+
+    fun deletePokemon(pokemon: Pokemon) {
+        interactor.deleteFromFavourite(pokemon.toPokemonDomain())
+    }
+
+    fun addPokemon(pokemon: Pokemon) {
+        interactor.addToFavourite(pokemon.toPokemonDomain())
     }
 
     fun setFavouriteState(): Boolean {

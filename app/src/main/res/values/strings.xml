@@ -7,6 +7,13 @@
     <string name="btn_random">Random</string>
     <string name="btn_search">Search</string>
     <string name="btn_favourite">Favourite</string>
+    
+    <string name="title_random">Catch a pokemon!</string>
+    <string name="title_search">Search a pokemon!</string>
+    <string name="title_favourite">Your favourites!</string>
+    <string name="title_menu">Menu</string>
+
+    <string name="get_random_btn">Tap to catch</string>
 
     <string name="search_hint">Enter the pokemon name ...</string>
     <string name="add_to_fav_btn">Add to Favourite</string>
