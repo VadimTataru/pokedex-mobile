@@ -40,6 +40,14 @@ class SearchViewModel @Inject constructor(
             .untilCleared()
     }
 
+    fun deletePokemon(pokemon: Pokemon) {
+        interactor.deleteFromFavourite(pokemon.toPokemonDomain())
+    }
+
+    fun addPokemon(pokemon: Pokemon) {
+        interactor.addToFavourite(pokemon.toPokemonDomain())
+    }
+
     fun setFavouriteState(): Boolean {
         favState.postValue(pokemon.value?.let { interactor.checkFavourite(it.name) })
         return if(favState.value == false) {

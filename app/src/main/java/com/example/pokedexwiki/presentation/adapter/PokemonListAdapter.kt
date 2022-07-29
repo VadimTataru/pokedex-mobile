@@ -26,6 +26,8 @@ class PokemonListAdapter: RecyclerView.Adapter<PokemonListAdapter.PokemonListHol
             pokemonWeight.text = "Weight: ${pokemon.weight}"
             pokemonName.text = pokemon.name.uppercase()
 
+            favBtn.setImageResource(R.drawable.ic_baseline_favorite_24)
+
             favBtn.setOnClickListener {
                 delegate?.deleteFavourite(pokemon)
             }

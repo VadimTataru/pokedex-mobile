@@ -51,13 +51,14 @@ class FavouriteFragment : Fragment() {
         binding.rcView.apply {
             pokemonListAdapter = PokemonListAdapter()
             pokemonListAdapter.attachDelegate(object: FavouriteStateDelegate{
-                override fun addFavourite(pokemon: Pokemon) {
+                override fun addFavourite(pokemon: Pokemon): Boolean {
                     TODO("Not yet implemented")
                 }
 
-                override fun deleteFavourite(pokemon: Pokemon) {
+                override fun deleteFavourite(pokemon: Pokemon): Boolean {
                     viewModel.deleteFavourite(pokemon)
                     pokemonListAdapter.deletePokemon(pokemon)
+                    return false
                 }
 
             })

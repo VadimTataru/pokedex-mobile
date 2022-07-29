@@ -12,20 +12,28 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.pokedexwiki.R
 import com.example.pokedexwiki.data.models.Pokemon
 import com.example.pokedexwiki.databinding.PokemonItemBinding
+import com.example.pokedexwiki.presentation.delegates.FavouriteStateDelegate
 import java.util.*
 
 class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
 
     private var pokemon: Pokemon? = null
+    private var delegate: FavouriteStateDelegate? = null
 
-    class PokemonHolder(item: View): RecyclerView.ViewHolder(item) {
+    class PokemonHolder(item: View, private val delegate: FavouriteStateDelegate?): RecyclerView.ViewHolder(item) {
         private val binding = PokemonItemBinding.bind(item)
+        private var isPokemonSaved: Boolean = false
+
         @SuppressLint("SetTextI18n")
         fun bind(pokemon: Pokemon) = with(binding) {
             pokemonId.text = "# ${pokemon.id}"
             pokemonHeight.text = "Height: ${pokemon.height}"
             pokemonWeight.text = "Weight: ${pokemon.weight}"
             pokemonName.text = pokemon.name.uppercase()
+
+            favBtn.setOnClickListener {
+                setState(pokemon)
+            }
 
             val link = pokemon.sprites.otherSprites.imageUrl.link
             Glide.with(pokemonImage)
@@ -34,11 +42,22 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(pokemonImage)
         }
+
+        private fun setState(pokemon: Pokemon) {
+            if(!isPokemonSaved) {
+                binding.favBtn.setImageResource(R.drawable.ic_baseline_favorite_24)
+                delegate?.addFavourite(pokemon)
+            } else {
+                binding.favBtn.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                delegate?.deleteFavourite(pokemon)
+            }
+            isPokemonSaved = !isPokemonSaved
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.pokemon_item, parent, false)
-        return PokemonHolder(view)
+        return PokemonHolder(view, delegate)
     }
 
     override fun onBindViewHolder(holder: PokemonHolder, position: Int) {
@@ -53,5 +72,9 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
     fun changePokemon(pokemon: Pokemon) {
         this.pokemon = pokemon
         notifyDataSetChanged()
+    }
+
+    fun attachDelegate(delegate: FavouriteStateDelegate) {
+        this.delegate = delegate
     }
 }

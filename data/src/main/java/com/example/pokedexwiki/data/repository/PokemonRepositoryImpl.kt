@@ -1,16 +1,12 @@
 package com.example.pokedexwiki.data.repository
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.example.pokedexwiki.data.models.PokemonEntity
 import com.example.pokedexwiki.data.source.local.PokemonDatabase
 import com.example.pokedexwiki.data.source.remote.PokemonAPIService
 import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.example.pokedexwiki.domain.repository.PokemonRepository
-import io.reactivex.Flowable
 import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class PokemonRepositoryImpl
@@ -61,17 +57,7 @@ class PokemonRepositoryImpl
     }
 
     override fun checkFavourite(input: String): Boolean {
-        var result = false
-        val dispose =  database.pokemonDao().getByName(input)
-            .subscribeOn(Schedulers.computation())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                result = it != null
-            }, {
-
-            })
-        dispose.dispose()
-        return result
+        return database.pokemonDao().getByName(input) != null
     }
 
     override fun getPokemonListFromDb(): List<PokemonDomain> {
