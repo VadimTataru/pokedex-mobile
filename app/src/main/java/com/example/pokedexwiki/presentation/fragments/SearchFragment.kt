@@ -68,6 +68,10 @@ class SearchFragment : Fragment() {
                     viewModel.deletePokemon(pokemon)
                     return false
                 }
+
+                override fun checkFavouriteState(pokemon: Pokemon): Boolean {
+                    return viewModel.checkFavouriteState(pokemon)
+                }
             })
             adapter = pokemonAdapter
         }

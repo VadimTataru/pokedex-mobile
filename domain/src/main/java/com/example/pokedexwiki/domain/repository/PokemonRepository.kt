@@ -8,6 +8,6 @@ interface PokemonRepository {
     fun getPokemonById(id: Int): Single<PokemonDomain>
     fun addPokemon(pokemonDomain: PokemonDomain)
     fun deletePokemon(pokemonDomain: PokemonDomain)
-    fun checkFavourite(input: String): Boolean
+    fun checkFavourite(id: Int): Boolean
     fun getPokemonListFromDb(): List<PokemonDomain>
 }

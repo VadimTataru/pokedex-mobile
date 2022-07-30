@@ -26,7 +26,7 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
 
         @SuppressLint("SetTextI18n")
         fun bind(pokemon: Pokemon) = with(binding) {
-            setDefaultState()
+            setStartState(pokemon)
             pokemonId.text = "# ${pokemon.id}"
             pokemonHeight.text = "Height: ${pokemon.height}"
             pokemonWeight.text = "Weight: ${pokemon.weight}"
@@ -44,9 +44,20 @@ class PokemonAdapter: RecyclerView.Adapter<PokemonAdapter.PokemonHolder>() {
                 .into(pokemonImage)
         }
 
-        private fun setDefaultState() {
-            isPokemonSaved = false
-            binding.favBtn.setImageResource(R.drawable.ic_baseline_favorite_border_24)
+        private fun setStartState(pokemon: Pokemon) {
+            isPokemonSaved = delegate?.checkFavouriteState(pokemon)!!
+            binding.favBtn.setImageResource(
+                if(isPokemonSaved)
+                    R.drawable.ic_baseline_favorite_24
+                else
+                    R.drawable.ic_baseline_favorite_border_24)
+
+
+        /*isPokemonSaved = delegate?.checkFavouriteState(pokemon)!!
+            if(isPokemonSaved)
+                binding.favBtn.setImageResource(R.drawable.ic_baseline_favorite_24)
+            else
+                binding.favBtn.setImageResource(R.drawable.ic_baseline_favorite_border_24)*/
         }
 
         private fun setState(pokemon: Pokemon) {

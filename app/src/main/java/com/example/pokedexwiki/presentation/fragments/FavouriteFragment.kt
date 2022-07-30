@@ -61,6 +61,10 @@ class FavouriteFragment : Fragment() {
                     return false
                 }
 
+                override fun checkFavouriteState(pokemon: Pokemon): Boolean {
+                    TODO("Not yet implemented")
+                }
+
             })
             adapter = pokemonListAdapter
         }

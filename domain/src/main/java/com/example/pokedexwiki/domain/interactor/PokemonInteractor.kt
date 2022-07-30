@@ -24,8 +24,8 @@ class PokemonInteractor @Inject constructor(
         repository.deletePokemon(pokemonDomain)
     }
 
-    fun checkFavourite(name: String): Boolean {
-        return repository.checkFavourite(name)
+    fun checkFavourite(id: Int): Boolean {
+        return repository.checkFavourite(id)
     }
 
     fun getPokemonListFromDb(): List<PokemonDomain> {

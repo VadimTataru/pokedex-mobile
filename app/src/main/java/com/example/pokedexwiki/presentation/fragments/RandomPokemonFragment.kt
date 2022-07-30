@@ -72,6 +72,10 @@ class RandomPokemonFragment : Fragment() {
                     return false
                 }
 
+                override fun checkFavouriteState(pokemon: Pokemon): Boolean {
+                    return viewModel.checkFavouriteState(pokemon)
+                }
+
             })
             adapter = pokemonAdapter
         }

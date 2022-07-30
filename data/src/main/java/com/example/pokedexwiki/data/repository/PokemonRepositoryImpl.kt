@@ -56,8 +56,8 @@ class PokemonRepositoryImpl
         ))
     }
 
-    override fun checkFavourite(input: String): Boolean {
-        return database.pokemonDao().getByName(input) != null
+    override fun checkFavourite(id: Int): Boolean {
+        return database.pokemonDao().getById(id) != null
     }
 
     override fun getPokemonListFromDb(): List<PokemonDomain> {

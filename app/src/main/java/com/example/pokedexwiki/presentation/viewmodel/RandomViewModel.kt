@@ -49,4 +49,8 @@ class RandomViewModel @Inject constructor(
     fun addPokemon(pokemon: Pokemon) {
         interactor.addToFavourite(pokemon.toPokemonDomain())
     }
+
+    fun checkFavouriteState(pokemon: Pokemon): Boolean {
+        return interactor.checkFavourite(pokemon.id)
+    }
 }
