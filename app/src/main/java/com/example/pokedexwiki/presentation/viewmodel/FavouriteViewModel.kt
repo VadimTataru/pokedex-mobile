@@ -2,6 +2,7 @@ package com.example.pokedexwiki.presentation.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.example.pokedexwiki.data.models.Pokemon
 import com.example.pokedexwiki.domain.interactor.PokemonInteractor
 import com.example.pokedexwiki.domain.models.PokemonDomain
 import com.example.pokedexwiki.presentation.base.BaseViewModel
@@ -23,5 +24,9 @@ class FavouriteViewModel @Inject constructor(
         val list = interactor.getPokemonListFromDb()
         Log.d("just check", "${list.size}")
         pokemonList.postValue(list)
+    }
+
+    fun deleteFavourite(pokemon: Pokemon) {
+        interactor.deleteFromFavourite(pokemon.toPokemonDomain())
     }
 }

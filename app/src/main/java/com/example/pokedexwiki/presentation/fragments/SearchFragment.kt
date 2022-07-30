@@ -13,6 +13,7 @@ import com.example.pokedexwiki.data.models.Sprite
 import com.example.pokedexwiki.data.models.SpritesObject
 import com.example.pokedexwiki.databinding.FragmentSearchBinding
 import com.example.pokedexwiki.presentation.adapter.PokemonAdapter
+import com.example.pokedexwiki.presentation.delegates.FavouriteStateDelegate
 import com.example.pokedexwiki.presentation.viewmodel.SearchViewModel
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
@@ -53,22 +54,25 @@ class SearchFragment : Fragment() {
             val text = binding.searchEt.text.toString().lowercase()
             loadData(text)
         }
-
-        binding.btnAddFav.setOnClickListener {
-            setFavouriteState()
-        }
-
-        viewModel.getFavState().observe(viewLifecycleOwner) {
-            if (!it)
-                binding.btnAddFav.text = "Добавить"
-            else
-                binding.btnAddFav.text = "Удалить"
-        }
     }
 
     private fun initRecyclerView() {
         binding.rcView.apply {
             pokemonAdapter = PokemonAdapter()
+            pokemonAdapter.attachDelegate(object: FavouriteStateDelegate {
+                override fun addFavourite(pokemon: Pokemon): Boolean {
+                    viewModel.addPokemon(pokemon)
+                    return true
+                }
+                override fun deleteFavourite(pokemon: Pokemon): Boolean {
+                    viewModel.deletePokemon(pokemon)
+                    return false
+                }
+
+                override fun checkFavouriteState(pokemon: Pokemon): Boolean {
+                    return viewModel.checkFavouriteState(pokemon)
+                }
+            })
             adapter = pokemonAdapter
         }
     }
@@ -85,11 +89,5 @@ class SearchFragment : Fragment() {
             }
         }
         viewModel.fetchPokemon(input)
-    }
-
-    private fun setFavouriteState() {
-        val result = viewModel.setFavouriteState()
-        val toastText = if(result) "Pokemon successfully added!" else "Pokemon deleted!"
-        Toast.makeText(this@SearchFragment.requireContext(), toastText, Toast.LENGTH_SHORT).show()
     }
 }

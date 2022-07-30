@@ -12,10 +12,10 @@ interface PokemonDao {
     fun getAll(): List<PokemonEntity>?
 
     @Query("select * from pokemons where name = :pokemonName")
-    fun getByName(pokemonName: String): Single<PokemonEntity?>
+    fun getByName(pokemonName: String): PokemonEntity?
 
     @Query("select * from pokemons where id = :id")
-    fun getById(id: Int): Single<PokemonEntity?>
+    fun getById(id: Int): PokemonEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addPokemon(pokemon: PokemonEntity)
