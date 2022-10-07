@@ -1,21 +1,21 @@
 <resources>
     <string name="app_name">PokedexWiki</string>
 
-    <string name="wrapper_poke">Pokemon</string>
-    <string name="wrapper_wiki">Wiki</string>
+    <string name="wrapper_poke" translatable="false">Pokemon</string>
+    <string name="wrapper_wiki" translatable="false">Wiki</string>
 
-    <string name="btn_random">Random</string>
-    <string name="btn_search">Search</string>
-    <string name="btn_favourite">Favourite</string>
+    <string name="btn_random" translatable="false">Random</string>
+    <string name="btn_search" translatable="false">Search</string>
+    <string name="btn_favourite" translatable="false">Favourite</string>
     
-    <string name="title_random">Catch a pokemon!</string>
-    <string name="title_search">Search a pokemon!</string>
+    <string name="title_random" translatable="false">Catch a pokemon!</string>
+    <string name="title_search" translatable="false">Search a pokemon!</string>
     <string name="title_favourite">Your favourites!</string>
-    <string name="title_menu">Menu</string>
+    <string name="title_menu" translatable="false">Menu</string>
 
-    <string name="get_random_btn">Tap to catch</string>
+    <string name="get_random_btn" translatable="false">Tap to catch</string>
 
-    <string name="search_hint">Enter the pokemon name ...</string>
-    <string name="add_to_fav_btn">Add to Favourite</string>
+    <string name="search_hint" translatable="false">Enter the pokemon name ...</string>
+    <string name="add_to_fav_btn" translatable="false">Add to Favourite</string>
 
 </resources>
